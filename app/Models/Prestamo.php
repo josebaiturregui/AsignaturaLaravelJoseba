@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Prestamo extends Model
 {
     use HasFactory;
+
+    public function libro(){
+        return $this->belongsTo(Libro::class);
+    }
 }
