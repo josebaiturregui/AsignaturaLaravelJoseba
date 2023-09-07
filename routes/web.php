@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('libros', [LibroController::class, 'index']);
+Route::resource('libros', LibroController::class);
+
