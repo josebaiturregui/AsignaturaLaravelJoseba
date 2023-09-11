@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\PrestamoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,9 @@ Route::get('/', function () {
 });
 
 Route::resource('libros', LibroController::class);
+Route::put('entregar-libro/{libro_id}', [LibroController::class, 'entregar'])->name('entregarLibro');
+
+Route::get('createprestamo/{libro_id}', [PrestamoController::class, 'createprestamo'])->name('createprestamo');
+Route::put('status-prestamo/{prestamo_id}', [PrestamoController::class, 'statusPrestamo'])->name('statusPrestamo');
+Route::resource('prestamos', PrestamoController::class);
 

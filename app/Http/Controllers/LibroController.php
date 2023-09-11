@@ -6,6 +6,7 @@ use App\Models\Libro;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLibroRequest;
 use App\Http\Requests\UpdateLibroRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class LibroController extends Controller
 {
@@ -14,7 +15,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        $libros = Libro::all();
+        $libros = Libro::orderBy("id", "desc")->buscar(request()->buscar)->get();
 
         return view('libros.index', compact('libros'));
     }
@@ -24,7 +25,16 @@ class LibroController extends Controller
      */
     public function create()
     {
-        //
+        return view('libros.create');
+    }
+
+    public function entregar($libro_id)
+    {
+        $libro = Libro::find($libro_id);
+        $libro->prestamos()->update(['status' => 1]);
+        $libro->disponible = 1;
+        $libro->update();
+        return redirect()->route('libros.index');
     }
 
     /**
@@ -32,7 +42,16 @@ class LibroController extends Controller
      */
     public function store(StoreLibroRequest $request)
     {
-        //
+        $libro = new Libro();
+        $libro->titulo = $request->titulo;
+        $libro->autor = $request->autor;
+        $libro->ano_publicacion = $request->ano_publicacion;
+        $libro->descripcion = $request->descripcion;
+        $libro->genero = $request->genero;
+        $libro->disponible = $request->disponible;
+
+        $libro->save();
+        return redirect()->route('libros.index');
     }
 
     /**
@@ -40,7 +59,7 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
-        //
+        return view('libros.show', compact('libro'));
     }
 
     /**
@@ -56,7 +75,15 @@ class LibroController extends Controller
      */
     public function update(UpdateLibroRequest $request, Libro $libro)
     {
-        //
+        $libro->titulo = $request->titulo;
+        $libro->autor = $request->autor;
+        $libro->ano_publicacion = $request->ano_publicacion;
+        $libro->descripcion = $request->descripcion;
+        $libro->genero = $request->genero;
+        $libro->disponible = $request->disponible;
+
+        $libro->update();
+        return redirect()->route('libros.index');
     }
 
     /**
@@ -64,6 +91,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return redirect()->route('libros.index');
     }
 }

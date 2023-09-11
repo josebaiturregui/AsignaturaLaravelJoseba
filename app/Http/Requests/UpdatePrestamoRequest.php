@@ -11,7 +11,7 @@ class UpdatePrestamoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdatePrestamoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "fecha_prestamo"=>"required",
+            "fecha_devolucion"=>"required"
         ];
     }
 }
