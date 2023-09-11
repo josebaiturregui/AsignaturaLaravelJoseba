@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('libro_id')->constrained();
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion');
+            $table->boolean('status');
+
             $table->timestamps();
         });
     }
