@@ -25,7 +25,7 @@
       <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
         <div class="overflow-hidden">
           <table class="min-w-full text-center text-sm font-light">
-            <thead class="border-b font-medium dark:border-neutral-500">
+            <thead class="border-b font-medium">
               <tr>
                 <th scope="col" class="px-6 py-4">Titulo del Libro</th>
                 <th scope="col" class="px-6 py-4">Datos de usuario</th>
@@ -37,7 +37,7 @@
             </thead>
             <tbody>
               @foreach ($prestamos as $prestamo)
-                <tr class="border-b dark:border-neutral-500">
+                <tr class="border-b">
                   <td class="whitespace-nowrap px-6 py-4 font-medium">
                     {{ $prestamo->libro->titulo }}
                   </td>
