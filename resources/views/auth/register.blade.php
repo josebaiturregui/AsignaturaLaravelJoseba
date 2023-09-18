@@ -3,6 +3,8 @@
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
+        <x-authentication-card-logo2  />  
+        <br />
 
         <x-validation-errors class="mb-4" />
 
