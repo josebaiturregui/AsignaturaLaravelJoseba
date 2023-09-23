@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Document</title>
-</head>
-<body>
-  <h1 class=" mx-[auto] my-[100px]">
-    <label class=" uppercase text-gray-700 text-[32px] capitalize font-bold mb-2 mx-[30%] my-[100px] justify-center" >
+<x-app-layout>
+  <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       Formulario de Prestamo
-    </label>
-  </h1>
+    </h2>
+  </x-slot>
   @if ($errors->any())
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
       <ul>
@@ -59,9 +50,6 @@
                 </option>
               @endforeach                 
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              {{-- <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg> --}}
-            </div>
           </div>
         </div>
       </div>
@@ -70,20 +58,25 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
             Ingresa el usuario : 
           </label>
+          @if (!Auth::user()->isAdmin())
+            <input name="user_id" type="hidden" value="{{ Auth::id() }}">
+          @endif
           <div class="relative">
             <select class="block appearance-none w-full bg-gray-200 border border-gray-200 
               text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none
               focus:bg-white focus:border-gray-500" 
               id="grid-state"
               name="user_id"
+              disabled="{{!Auth::user()->isAdmin()}}"
             >
+              @if (!Auth::user()->isAdmin())
+                <option value="{{ Auth::id() }}" selected> {{ Auth::user()->name }}</option>
+              @endif
+              
               @foreach ($users as $user)
                 <option value="{{ $user->id }}"> {{ $user->name }}</option>
               @endforeach                 
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              {{-- <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg> --}}
-            </div>
           </div>
         </div>
       </div>
@@ -116,8 +109,6 @@
             name="fecha_devolucion"
             >
         </div>
-          
-        </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full px-3">
@@ -135,11 +126,17 @@
           @endif
         </div>
       </div>
-      <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        type='submit'>
-        Prestar Libro
-      </button>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type='submit'>
+            Prestar Libro
+          </button>
+          <a class="bg-red-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded" href="{{ route('prestamos.index') }}" >
+            Ver Prestamos
+          </a>
+        </div>
+      </div>
   </form>
-</body>
-</html>
+</x-app-layout>

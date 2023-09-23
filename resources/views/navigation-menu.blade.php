@@ -86,6 +86,16 @@
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
+                                <span
+                                    style="position:relative; width:50px; height:25px;"
+                                    @if (Auth::user()->isAdmin()) 
+                                        class="bg-red-200 rounded-[10px] px-2 py-1 justify-end text-[10px] font-semibold text-gray-700  mb-2 cursor-pointer text-center"
+                                    @else
+                                        class="bg-green-200 rounded-[10px] px-2 py-1 justify-end text-[10px] font-semibold text-gray-700  mb-2 cursor-pointer text-center"
+                                    @endif
+                                >
+                                    {{ Auth::user()->role->nombre }}
+                                </span>
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
@@ -95,6 +105,8 @@
                                         </svg>
                                     </button>
                                 </span>
+                                
+
                             @endif
                         </x-slot>
 

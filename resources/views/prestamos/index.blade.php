@@ -1,25 +1,21 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite('resources/css/app.css')
-</head>
-<body>
-  <h1 class="text-3xl font-bold mx-[auto] my-[20px] pt-[20px] text-center">
-    Tabla de Prestamos
-  </h1>
-<div class="flex w-full justify-center">
-  <div class=" w-[400px] my-[20px] text-white text-center font-bold py-2 px-4 rounded">
-    <a href="{{ route('prestamos.create') }}" class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-[50px] rounded"
-    >Solicitar Prestamo</a>
+<x-app-layout>
+  <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      Tabla de Prestamos
+    </h2>
+  </x-slot>
+  <div class="flex w-full justify-center">
+    <div class=" w-[400px] my-[20px] text-white text-center font-bold py-2 px-4 rounded">
+      <a href="{{ route('prestamos.create') }}" class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-[50px] rounded">
+        Solicitar Prestamo
+      </a>
+    </div>
+    <div class=" w-[400px] my-[20px] text-24 text-white text-center font-bold py-2 px-4 rounded">
+      <a href="{{ route('libros.index') }}" class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-[50px] rounded">
+        Ver Libros
+      </a>
+    </div>
   </div>
-  <div class=" w-[400px] my-[20px] text-24 text-white text-center font-bold py-2 px-4 rounded">
-    <a href="{{ route('libros.index') }}" class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-[50px] rounded"
-    >Ver Libros</a>
-  </div>
-</div>
-  
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -67,26 +63,21 @@
                         @csrf
                         @method('PUT')
                         <input 
-                        type="hidden"
-                        value="1"
+                          type="hidden"
+                          value="1"
                         >
-                        <button class="bg-red-800 hover:bg-red-900 text-white font-bold font-bold py-2 px-4 rounded"
-                        type='submit'>
-                        Entregar</button>
-                        
+                        <button class="bg-red-800 hover:bg-red-900 text-white font-bold font-bold py-2 px-4 rounded" type='submit'>
+                          Entregar
+                        </button>
                       </form>
                     </div>  
                   </td>
                 </tr>
-
-
               @endforeach
-             
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-</body>
-</html>
+</x-app-layout>

@@ -58,4 +58,21 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public $admin = 'admin';
+
+    public function isAdmin()
+    {
+        return $this->role->acronimo === $this->admin;
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+
+    }
+    public function prestamos() 
+    {
+        return $this->hasMany(Prestamo::class);
+    }
 }
