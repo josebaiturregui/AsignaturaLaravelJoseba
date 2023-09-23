@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePrestamoRequest;
 use App\Models\Libro;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PrestamoController extends Controller
 {
@@ -19,6 +20,7 @@ class PrestamoController extends Controller
     {
         $prestamos = Prestamo::with('user:id,name', 'libro:id,titulo')
             ->orderBy("id", "desc")
+            ->filterByUser()
             ->get();
         return view('prestamos.index', compact('prestamos'));
     }
